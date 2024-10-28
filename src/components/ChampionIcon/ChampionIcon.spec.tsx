@@ -21,6 +21,6 @@ describe('champions card', () => {
     test('should render name', () => {
         const {getByTitle} = render(component)
 
-        expect(getByTitle('icone do Aatrox')).toBeInTheDocument()
+        expect(getByTitle('Aatrox')).toBeInTheDocument()
     })
 })
