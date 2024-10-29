@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClients from "../../services/apiClients";
 import { ChampionIcon } from "../../components/ChampionIcon/ChampionIcon";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   useEffect(() => {
@@ -25,10 +26,12 @@ export const Home = () => {
       ></div>
       <div className="grid grid-cols-8 gap-2 h-[80vh] overflow-y-auto">
         {champions.map((champion) => (
-          <ChampionIcon
-            name={champion.name}
-            icon={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/${champion.id}.png`}
-          />
+          <Link to={`/ChampionScreen?id=${champion.id}`}>
+            <ChampionIcon
+              name={champion.name}
+              icon={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/${champion.id}.png`}
+            />
+          </Link>
         ))}
       </div>
     </div>
