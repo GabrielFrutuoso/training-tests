@@ -1,11 +1,9 @@
-import React from 'react';
-
-const ChampionScreen: React.FC = () => {
+export const ChampionScreen: React.FC = () => {
   return (
-    <div data-testid="champion">
-      ChampionScreen
+    <div data-testid="champion" className="h-screen flex justify-center items-center relative">
+      <img src="" alt="" />
     </div>
   );
 };
 
-export default ChampionScreen;
+
