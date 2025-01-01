@@ -17,8 +17,6 @@ export const Home = () => {
     });
   }, []);
 
-  console.log(champions);
-
   return (
     <div className="h-screen relative flex justify-center items-center">
       <div
@@ -27,7 +25,7 @@ export const Home = () => {
       ></div>
       <div className="grid grid-cols-8 gap-2 h-[80vh] overflow-y-auto">
         {champions.map((champion) => (
-          <Link key={champion.id} to={`/ChampionScreen?id=${champion.id}`}>
+          <Link key={champion.id} to={`/ChampionScreen?id=${champion.id}&skin=0`}>
             <ChampionIcon
               name={champion.name}
               icon={`https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/${champion.id}.png`}
