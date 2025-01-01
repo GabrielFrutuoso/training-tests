@@ -2,8 +2,9 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { ChampionIcon } from "./ChampionIcon";
+import { BrowserRouter } from "react-router-dom";
 
-const component = <ChampionIcon name="Aatrox" icon="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/Aatrox.png" />
+const component = <BrowserRouter><ChampionIcon name="Aatrox" icon="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/Aatrox.png" /></BrowserRouter>
 
 describe('champions card', () => {
     test('should render', () => {
@@ -24,5 +25,4 @@ describe('champions card', () => {
         expect(screen.getByTitle('Aatrox')).toBeInTheDocument()
     })
 
-    
 })

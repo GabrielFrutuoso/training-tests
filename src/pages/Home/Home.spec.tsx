@@ -10,4 +10,10 @@ describe('Home page', () => {
 
         expect(getByTestId('home')).toBeInTheDocument()
     })
+
+    test("should render champion icons", async () => {
+        const { getByText } = await render(<Home />)
+
+        expect(getByText('Aatrox')).toBeInTheDocument()
+    })
 })
