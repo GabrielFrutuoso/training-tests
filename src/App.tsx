@@ -1,9 +1,12 @@
-import { Home } from "./pages/Home/Home";
+import { BrowserRouter } from "react-router-dom";
+import { AppRoutes } from "./routes/AppRoutes";
 
 function App() {
   return (
     <main data-testid="app">
-      <Home />
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </main>
   );
 }
