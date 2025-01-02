@@ -10,7 +10,7 @@ describe("champion page", () => {
     expect(getByTestId("champion")).toBeInTheDocument();
   });
 
-  test("should render champion splash art", async () => {
+  test("should render champion splash art", () => {
     const searchParams = new URLSearchParams("?id=Aatrox&skin=2");
     window.history.pushState({}, "", `?${searchParams.toString()}`);
 
@@ -22,7 +22,7 @@ describe("champion page", () => {
     );
   });
 
-  test("should render champion name and title", async () => { 
+  test("should render champion name and title", () => { 
     const searchParams = new URLSearchParams("?id=Aatrox&skin=0");
     window.history.pushState({}, "", `?${searchParams.toString()}`);
 
