@@ -1,26 +1,44 @@
 import { useEffect, useState } from "react";
 import apiClients from "../../services/apiClients";
 import SpellsIcon from "../../components/SpellsIcon/SpellsIcon";
+import { useSearchParams } from "react-router-dom";
+
+interface Champion {
+  name: string;
+  title: string;
+  passive: {
+    image: {
+      full: string;
+    };
+    description: string;
+  };
+  spells: {
+    image: {
+      full: string;
+    };
+    description: string;
+  }[];
+}
 
 export const ChampionScreen: React.FC = () => {
-  const searchParams = new URLSearchParams(window.location.search);
+  const [searchParams] = useSearchParams();
   const championId = searchParams.get("id");
   const championSkin = searchParams.get("skin");
 
-  const [skinumber, setSkinNumber] = useState(0);
-  const [champion, setChampion] = useState([]);
+  const [skinNumber, setSkinNumber] = useState(0);
+  const [champion, setChampion] = useState<Champion | null>(null);
 
   useEffect(() => {
     setSkinNumber(championSkin ? parseInt(championSkin) : 0);
   }, [championSkin]);
 
   useEffect(() => {
-    apiClients.specificChamp.get(`/${championId}.json`).then((response) => {
-      setChampion(response.data.data);
-    });
+    if (championId) {
+      apiClients.specificChamp.get(`/${championId}.json`).then((response) => {
+        setChampion(response.data.data[championId]);
+      });
+    }
   }, [championId]);
-
-  console.log(champion[championId]);
 
   return (
     <div
@@ -28,30 +46,33 @@ export const ChampionScreen: React.FC = () => {
       className="h-screen flex justify-center items-center relative"
     >
       <img
-        src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championId}_${skinumber}.jpg`}
+        src={`https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${championId}_${skinNumber}.jpg`}
         alt={`splash art of ${championId}`}
         className="h-full w-full object-cover absolute top-0 left-0"
       />
 
       <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
-        <h1 className="text-6xl text-white font-semibold">
-          {champion[championId]?.name}
+        <h1 role="contentinfo" className="text-6xl text-white font-semibold">
+          {champion?.name}
         </h1>
         <p className="text-4xl text-white font-semibold">
-          {champion[championId]?.title}
+          {champion?.title}
         </p>
 
         <div className="flex flex-row gap-4">
-          <SpellsIcon
-            image={`https://ddragon.leagueoflegends.com/cdn/14.24.1/img/passive/${champion[championId]?.passive?.image?.full}`}
-            alt={`passevie of ${champion[championId]?.name}`}
-            description={`${champion[championId]?.passive?.description}`}
-          />
-          {champion[championId]?.spells?.map((spell) => (
+          {champion?.passive && (
             <SpellsIcon
-              image={`https://ddragon.leagueoflegends.com/cdn/14.24.1/img/spell/${spell?.image?.full}`}
-              alt={`skill of ${champion[championId]?.name}`}
-              description={`${spell?.description}`}
+              image={`https://ddragon.leagueoflegends.com/cdn/14.24.1/img/passive/${champion.passive.image.full}`}
+              alt={`passive of ${champion.name}`}
+              description={champion.passive.description}
+            />
+          )}
+          {champion?.spells?.map((spell, index) => (
+            <SpellsIcon
+              key={index}
+              image={`https://ddragon.leagueoflegends.com/cdn/14.24.1/img/spell/${spell.image.full}`}
+              alt={`skill of ${champion.name}`}
+              description={spell.description}
             />
           ))}
         </div>
