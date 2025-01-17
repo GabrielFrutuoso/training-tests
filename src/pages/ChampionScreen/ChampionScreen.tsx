@@ -70,9 +70,9 @@ export const ChampionScreen: React.FC = () => {
           {champion?.spells?.map((spell, index) => (
             <SpellsIcon
               key={index}
-              image={`https://ddragon.leagueoflegends.com/cdn/14.24.1/img/spell/${spell.image.full}`}
-              alt={`skill of ${champion.name}`}
-              description={spell.description}
+              image={`https://ddragon.leagueoflegends.com/cdn/14.24.1/img/spell/${spell?.image?.full}`}
+              alt={`skill of ${champion?.name}`}
+              description={spell?.description}
             />
           ))}
         </div>
